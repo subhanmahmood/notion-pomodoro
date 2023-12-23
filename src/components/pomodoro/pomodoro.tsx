@@ -46,7 +46,7 @@ const Pomodoro = () => {
           {options[count % options.length].name}
         </Button>
       </div>
-      <div className="text-5xl ordinal tabular-nums slashed-zero">
+      <div className="text-7xl ordinal tabular-nums slashed-zero">
         {formattedTimeLeft}
       </div>
       <div className="flex w-full gap-4">
