@@ -32,7 +32,7 @@ const Pomodoro = () => {
   } = usePomodoro(options);
 
   useEffect(() => {
-    updateTimer(options[count % options.length]);
+    updateTimer(options[count % options.length], false);
   }, [count, options, updateTimer]);
 
   const updateCount = () => {
