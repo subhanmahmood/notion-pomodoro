@@ -2,13 +2,22 @@ import { Inter } from "next/font/google";
 import Pomodoro from "@/components/pomodoro/pomodoro";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useTheme } from "next-themes";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { theme, setTheme } = useTheme();
+
   const writeLinkToClipboard = () => {
-    window.navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_APP_URL}/view`);
-    toast.success('Copied to clipboard!')
+    let url = `${process.env.NEXT_PUBLIC_APP_URL}/view`;
+    if (theme === "dark") {
+      url += "?theme=dark";
+    }
+    window.navigator.clipboard.writeText(url);
+    toast.success("Copied to clipboard!");
   };
 
   return (
@@ -21,6 +30,16 @@ export default function Home() {
           Click the button below to get an embeddable link to this pomodoro
           timer
         </p>
+        <div className="flex items-center space-x-2">
+          <Label className="text-sm text-gray-500" htmlFor="dark-mode">
+            Dark Mode
+          </Label>
+          <Switch
+            checked={theme === "dark"}
+            onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+            id="dark-mode"
+          />
+        </div>
         <Button size={"sm"} onClick={writeLinkToClipboard}>
           Get link
         </Button>
